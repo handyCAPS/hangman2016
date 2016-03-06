@@ -1,0 +1,39 @@
+
+
+@function modScale($n, $base: 1, $ratio: 1.618) {
+
+    $total: $base;
+
+    @if $n > 0 {
+        @for $i from 1 through $n {
+            $total: $total * $ratio;
+        }
+    }
+
+    @if $n < 0 {
+        @for $i from 0 through $n + 1 {
+            $total: $total / $ratio;
+        }
+    }
+
+    @return $total;
+}
+
+/*
+* Longshadow mixin from Daniel Ott (via codepen.io)
+ */
+
+@function makelongshadow($color, $n) {
+
+    $val: 0px 0px $color;
+
+    @for $i from 1 through $n {
+        $val: #{$val}, #{$i}px #{$i}px #{$color};
+    }
+
+    @return $val;
+}
+
+@mixin longshadow($color, $n) {
+    text-shadow: makelongshadow($color, $n);
+}
