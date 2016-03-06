@@ -3,47 +3,58 @@
 
 (function(){document.getElementsByTagName('html')[0].classList.remove('no-js');})();
 
-(function() {
 
-    var Events = (function() {
+var Events = (function() {
 
-        var topics = {};
+    var topics = {};
 
-        return {
+    return {
 
-            subscribe: function(topic, callback) {
+        subscribe: function(topic, callback) {
 
-                if (!topics[topic]) { topics[topic] = { queue:[] }; }
+            if (!topics[topic]) { topics[topic] = { queue:[] }; }
 
-                var index = topics[topic].queue.push(callback) - 1;
+            var index = topics[topic].queue.push(callback) - 1;
 
-                return {
+            return {
 
-                    remove: function() {
+                remove: function() {
 
-                        delete topics[topic].queue[index];
+                    delete topics[topic].queue[index];
 
-                    }
+                }
 
-                };
+            };
 
-            },
+        },
 
-            publish: function(topic, info) {
+        publish: function(topic, info) {
 
-                if (!topics[topic] || !topics[topic].queue.length) { return; }
+            if (!topics[topic] || !topics[topic].queue.length) { return; }
 
-                var callbacks = topics[topic].queue;
+            var callbacks = topics[topic].queue;
 
-                callbacks.forEach(function(cb) {
-                    cb(info || {});
-                });
+            callbacks.forEach(function(cb) {
+                cb(info || {});
+            });
 
-            }
+        }
 
-        };
-
-    }());
-
+    };
 
 }());
+
+function get(el) {
+    return document['querySelector' + (el.indexOf('#') !== 0 ? 'All' : '')](el);
+}
+
+
+
+function runTheMan() {
+    [].forEach.call(get('.stick'), function(stick, i) {
+        stick.classList.add('hidden');
+        window.setTimeout(function() {
+            stick.classList.remove('hidden');
+        }, (i + 1) * 500);
+    });
+}

@@ -1,0 +1,99 @@
+
+
+$boardWidth: 300;
+$boardHeight: 400;
+
+$woodWidth: 20;
+$bodyWidth: 8;
+
+.boardWrap {
+    position: relative;
+    border: 1px solid black;
+    width: $boardWidth + px;
+    height: $boardHeight + px;
+    margin: 0 auto;
+}
+
+.stick {
+    position: absolute;
+    background-color: #000;
+    height: $woodWidth + px;
+}
+
+.stick1, .stick4 {
+    width: 260px;
+    left: 20px;
+}
+
+.stick1 {
+    bottom: 40px;
+}
+
+.stick2 {
+    height: 320px;
+    width: $woodWidth + px;
+    bottom: 60px;
+    left: 60px;
+}
+
+.stick3, .stick5 {
+    width: 120px;
+    transform: rotate(45deg);
+    left: 50px;
+    bottom: 80px;
+}
+
+.stick4 {
+    top: 40px;
+}
+
+.stick5 {
+    width: 80px;
+    top: 70px;
+    left: 60px;
+    transform: rotate(-45deg);
+}
+
+.bodyPart {
+    width: $bodyWidth + px;
+}
+
+.stick6, .stick8 {
+    right: 100px;
+}
+
+.stick6 {
+    height: 40px;
+    top: 60px;
+}
+
+.stick7 {
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border: $bodyWidth + px solid black;
+    border-radius: 50%;
+    top: 100px;
+    right: 80px;
+}
+
+.stick8 {
+    height: 80px;
+    top: 150px;
+}
+
+.stick9, .stick10, .stick11, .stick12 {
+    height: 60px;
+    top: 220px;
+    right: 116px;
+    transform: rotate(30deg);
+}
+
+.stick10, .stick12 {
+    transform: rotate(-30deg);
+    right: 84px;
+}
+
+.stick11, .stick12 {
+    top: 160px;
+}
