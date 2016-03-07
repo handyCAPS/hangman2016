@@ -62,6 +62,114 @@ function findIndexes(letter, word) {
     return indexes;
 }
 
+var HangMan = (function() {
+    var board = get('.board')[0],
+        sticks = get('.stick');
+
+    function runTheMan() {
+        [].forEach.call(get('.stick'), function(stick, i) {
+            stick.classList.add('hidden');
+            window.setTimeout(function() {
+                stick.classList.remove('hidden');
+            }, (i + 1) * 500);
+        });
+    }
+
+    function hideTheSticks() {
+        [].forEach.call(sticks, function(stick) {
+            stick.classList.add('hidden');
+        });
+    }
+
+    function showStick(stick) {
+        sticks[stick].classList.remove('hidden');
+    }
+
+    function getSticks(getNumber) {
+        return getNumber ? sticks.length : sticks;
+    }
+
+    return {
+        hideTheSticks: hideTheSticks,
+        showStick: showStick,
+        getSticks: getSticks
+    };
+
+}());
+
+var LetterBoard = (function() {
+
+    var board = get('.letterBoard')[0],
+        wordToGuess = '',
+        guesses = 0,
+        rightGuessedLetters = [],
+        guessesAllowed = HangMan.getSticks(true),
+        wrongGuesses = 0,
+        wrongGuessedLetters = [],
+        dead = false,
+        winner = false;
+
+    function getLetterBox() {
+        var letterBox = document.createElement('div');
+        letterBox.classList.add('letter');
+        return letterBox;
+    }
+
+    function addLettersToLetterBoard() {
+        var wordArray = splitWord(wordToGuess);
+        wordArray.forEach(function() {
+            board.appendChild(getLetterBox());
+        });
+    }
+
+    function setLetter(letter) {
+        var indexes = findIndexes(letter, wordToGuess);
+        indexes.forEach(function(idx) {
+            rightGuessedLetters.push(letter);
+            get('.letter')[idx].appendChild(document.createTextNode(letter));
+        });
+    }
+
+    function setWord(word) {
+        wordToGuess = word;
+        addLettersToLetterBoard();
+    }
+
+    function guessLetter(letter) {
+        guesses++;
+        if (wordToGuess.indexOf(letter) !== -1) {
+            setLetter(letter);
+            return true;
+        }
+        HangMan.showStick(wrongGuesses);
+        wrongGuesses++;
+        wrongGuessedLetters.push(letter);
+        return false;
+    }
+
+    function deadOrWinner() {
+        if (guessesAllowed === wrongGuesses) { dead = true; }
+        if (rightGuessedLetters.length === wordToGuess.length) { winner = true; }
+    }
+
+    return {
+        setWord: setWord,
+        guessLetter: guessLetter
+    };
+
+}());
+
+
+
+function listenForGuess() {
+    get('#guess').addEventListener('keyup', function(event) {
+        var letter = this.value.trim();
+        var isGood = LetterBoard.guessLetter(letter);
+        console.log(this.value);
+        this.value = '';
+    });
+}
+
 
 function runTheMan() {
     [].forEach.call(get('.stick'), function(stick, i) {
@@ -71,29 +179,3 @@ function runTheMan() {
         }, (i + 1) * 500);
     });
 }
-
-function getLetterBox() {
-    var letterBox = document.createElement('div');
-    letterBox.classList.add('letter');
-    return letterBox;
-}
-
-function addLettersToLetterBoard(word) {
-    var lBoard = get('.letterBoard')[0];
-    var wordArray = splitWord(word);
-    wordArray.forEach(function() {
-        lBoard.appendChild(getLetterBox());
-    });
-}
-
-function addWordToBoard() {
-    addLettersToLetterBoard('testing');
-}
-
-function setLetter(letter, word) {
-    var indexes = findIndexes(letter, word);
-    indexes.forEach(function(idx) {
-        get('.letter')[idx].appendChild(document.createTextNode(letter));
-    });
-}
-

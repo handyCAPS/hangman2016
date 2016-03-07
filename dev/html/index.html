@@ -35,6 +35,11 @@
             </div>
         </div>
 
+        <div class="guessWrap">
+            <h3 class="guessHeader">Guess</h3>
+            <input type="text" id="guess">
+        </div>
+
     </section>
 
     <section class="rightSection">
@@ -66,7 +71,8 @@
 
    <script src="../js/hangman2016/main.js"></script>
    <script type="text/javascript">
-       addWordToBoard();
+        LetterBoard.setWord('testing');
+        listenForGuess();
    </script>
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
