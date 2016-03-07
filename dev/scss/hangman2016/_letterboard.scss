@@ -1,0 +1,22 @@
+
+
+.letterBoardWrap {
+    // width: span(12 of 12);
+}
+
+.letterBoard {
+    @include flexMiddle();
+    border: 1px solid black;
+    padding: 1rem modScale(2) + rem;
+    width: 600px;
+}
+
+.letter {
+    @include flexMiddle();
+    align-items: center;
+    text-transform: uppercase;
+    font-size: modScale(2) + rem;
+    border: 1px solid black;
+    height: modScale(3) + rem;
+    width: modScale(3) + rem;
+}

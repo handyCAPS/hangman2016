@@ -78,6 +78,7 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         browser: true,
+        jasmine: true,
         globals: {
           require: true
         }
@@ -104,7 +105,8 @@ module.exports = function(grunt) {
     sass: {
       dev: {
         options: {
-          debugInfo: true
+          debugInfo: true,
+          require: 'susy'
         },
         files: [{
           expand: true,

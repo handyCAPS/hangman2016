@@ -14,5 +14,14 @@ body {
 }
 
 .outerWrap {
-    padding: 1rem 0;
+    @include flexMiddle();
+    padding: modScale(2) + rem;
+}
+
+.leftSection {
+    width: span(8 of 12);
+}
+
+.rightSection {
+    width: span(4 of 12);
 }

@@ -23,24 +23,40 @@
 
     <div class="outerWrap">
 
-    <div class="boardWrap">
-        <div class="board">
-            <div class="stick stick1" data-stick="1"></div>
-            <div class="stick stick2" data-stick="2"></div>
-            <div class="stick stick3" data-stick="3"></div>
-            <div class="stick stick4" data-stick="4"></div>
-            <div class="stick stick5" data-stick="5"></div>
-            <div class="bodyPartsWrap">
-                <div class="stick stick6 bodyPart" data-stick="6"></div>
-                <div class="stick stick7 bodyPart" data-stick="7"></div>
-                <div class="stick stick8 bodyPart" data-stick="8"></div>
-                <div class="stick stick9 bodyPart" data-stick="9"></div>
-                <div class="stick stick10 bodyPart" data-stick="10"></div>
-                <div class="stick stick11 bodyPart" data-stick="11"></div>
-                <div class="stick stick12 bodyPart" data-stick="12"></div>
+    <section class="leftSection">
+
+        <div class="settingsWrap">
+            <h3 class="settingsHeader">Settings</h3>
+            <hr>
+        </div>
+
+        <div class="letterBoardWrap">
+            <div class="letterBoard">
             </div>
         </div>
-    </div>
+
+    </section>
+
+    <section class="rightSection">
+        <div class="boardWrap">
+            <div class="board">
+                <div class="stick stick1" data-stick="1"></div>
+                <div class="stick stick2" data-stick="2"></div>
+                <div class="stick stick3" data-stick="3"></div>
+                <div class="stick stick4" data-stick="4"></div>
+                <div class="stick stick5" data-stick="5"></div>
+                <div class="bodyPartsWrap">
+                    <div class="stick stick6 bodyPart" data-stick="6"></div>
+                    <div class="stick stick7 bodyPart" data-stick="7"></div>
+                    <div class="stick stick8 bodyPart" data-stick="8"></div>
+                    <div class="stick stick9 bodyPart" data-stick="9"></div>
+                    <div class="stick stick10 bodyPart" data-stick="10"></div>
+                    <div class="stick stick11 bodyPart" data-stick="11"></div>
+                    <div class="stick stick12 bodyPart" data-stick="12"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </div><!--  end outerWrap  -->
 
@@ -49,6 +65,9 @@
    <!-- endbower -->
 
    <script src="../js/hangman2016/main.js"></script>
+   <script type="text/javascript">
+       addWordToBoard();
+   </script>
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 

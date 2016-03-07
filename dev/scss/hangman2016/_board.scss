@@ -7,8 +7,11 @@ $woodWidth: 20;
 $bodyWidth: 8;
 
 .boardWrap {
+    width: 100%;
+}
+
+.board {
     position: relative;
-    border: 1px solid black;
     width: $boardWidth + px;
     height: $boardHeight + px;
     margin: 0 auto;
