@@ -102,6 +102,7 @@ var LetterBoard = (function() {
     var board = get('.letterBoard')[0],
         wordToGuess = '',
         guesses = 0,
+        guessedLetters = [],
         rightGuessedLetters = [],
         guessesAllowed = HangMan.getSticks(true),
         wrongGuesses = 0,
@@ -111,7 +112,7 @@ var LetterBoard = (function() {
 
     function getLetterBox() {
         var letterBox = document.createElement('div');
-        letterBox.classList.add('letter');
+        letterBox.classList.add('letter','letterGood');
         return letterBox;
     }
 
@@ -126,7 +127,7 @@ var LetterBoard = (function() {
         var indexes = findIndexes(letter, wordToGuess);
         indexes.forEach(function(idx) {
             rightGuessedLetters.push(letter);
-            get('.letter')[idx].appendChild(document.createTextNode(letter));
+            get('.letterGood')[idx].appendChild(document.createTextNode(letter));
         });
     }
 
@@ -136,15 +137,25 @@ var LetterBoard = (function() {
     }
 
     function guessLetter(letter) {
+        if (guessedLetters.indexOf(letter) !== -1) { return; }
         guesses++;
+        guessedLetters.push(letter);
         if (wordToGuess.indexOf(letter) !== -1) {
-            setLetter(letter);
-            return true;
+            letterGood(letter);
+        } else {
+            letterWrong(letter);
         }
+    }
+
+    function letterGood(letter) {
+        setLetter(letter);
+    }
+
+    function letterWrong(letter) {
         HangMan.showStick(wrongGuesses);
-        wrongGuesses++;
         wrongGuessedLetters.push(letter);
-        return false;
+        get('.letterWrong')[wrongGuesses].appendChild(document.createTextNode(letter));
+        wrongGuesses++;
     }
 
     function deadOrWinner() {

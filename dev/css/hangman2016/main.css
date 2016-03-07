@@ -389,3 +389,15 @@ html {
   border: 1px solid black;
   height: 4.2358rem;
   width: 4.2358rem; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/hangman2016\/dev\/scss\/hangman2016\/_wrongguess\.scss}line{font-family:\000033}}
+.wrongGuessBarrel {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around; }
