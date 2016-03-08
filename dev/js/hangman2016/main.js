@@ -103,7 +103,7 @@ var LetterBoard = (function() {
         wordToGuess = '',
         guesses = 0,
         guessedLetters = [],
-        rightGuessedLetters = [],
+        rightGuessedLetters = 0,
         guessesAllowed = HangMan.getSticks(true),
         wrongGuesses = 0,
         dead = false,
@@ -125,7 +125,7 @@ var LetterBoard = (function() {
     function setLetter(letter) {
         var indexes = findIndexes(letter, wordToGuess);
         indexes.forEach(function(idx) {
-            rightGuessedLetters.push(letter);
+            rightGuessedLetters++;
             get('.letterGood')[idx].appendChild(document.createTextNode(letter));
         });
     }
@@ -141,11 +141,15 @@ var LetterBoard = (function() {
         guessedLetters.push(letter);
         var func = wordToGuess.indexOf(letter) !== -1 ? letterGood : letterWrong;
         func(letter);
+        deadOrWinner();
+        console.log('winner: ' + winner);
     }
 
     function isAllowed(letter) {
         var result = true;
-        if (guessedLetters.indexOf(letter) !== -1 ||
+        if (letter === undefined ||
+            letter.length > 1 ||
+            guessedLetters.indexOf(letter) !== -1 ||
             /[^a-z]/i.test(letter)) {
                 result = false;
         }
@@ -164,7 +168,7 @@ var LetterBoard = (function() {
 
     function deadOrWinner() {
         if (guessesAllowed === wrongGuesses) { dead = true; }
-        if (rightGuessedLetters.length === wordToGuess.length) { winner = true; }
+        if (rightGuessedLetters === wordToGuess.length) { winner = true; }
     }
 
     return {
@@ -178,7 +182,7 @@ var LetterBoard = (function() {
 
 function listenForGuess() {
     get('#guess').addEventListener('keyup', function() {
-        var letter = this.value.trim();
+        var letter = this.value.trim()[0];
         LetterBoard.guessLetter(letter);
         this.value = '';
     });
