@@ -106,7 +106,6 @@ var LetterBoard = (function() {
         rightGuessedLetters = [],
         guessesAllowed = HangMan.getSticks(true),
         wrongGuesses = 0,
-        wrongGuessedLetters = [],
         dead = false,
         winner = false;
 
@@ -137,14 +136,20 @@ var LetterBoard = (function() {
     }
 
     function guessLetter(letter) {
-        if (guessedLetters.indexOf(letter) !== -1) { return; }
+        if (!isAllowed(letter)) { return; }
         guesses++;
         guessedLetters.push(letter);
-        if (wordToGuess.indexOf(letter) !== -1) {
-            letterGood(letter);
-        } else {
-            letterWrong(letter);
+        var func = wordToGuess.indexOf(letter) !== -1 ? letterGood : letterWrong;
+        func(letter);
+    }
+
+    function isAllowed(letter) {
+        var result = true;
+        if (guessedLetters.indexOf(letter) !== -1 ||
+            /[^a-z]/i.test(letter)) {
+                result = false;
         }
+        return result;
     }
 
     function letterGood(letter) {
@@ -153,7 +158,6 @@ var LetterBoard = (function() {
 
     function letterWrong(letter) {
         HangMan.showStick(wrongGuesses);
-        wrongGuessedLetters.push(letter);
         get('.letterWrong')[wrongGuesses].appendChild(document.createTextNode(letter));
         wrongGuesses++;
     }
@@ -173,10 +177,9 @@ var LetterBoard = (function() {
 
 
 function listenForGuess() {
-    get('#guess').addEventListener('keyup', function(event) {
+    get('#guess').addEventListener('keyup', function() {
         var letter = this.value.trim();
-        var isGood = LetterBoard.guessLetter(letter);
-        console.log(this.value);
+        LetterBoard.guessLetter(letter);
         this.value = '';
     });
 }
